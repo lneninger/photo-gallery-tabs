@@ -1,0 +1,2 @@
+C:\Users\lneni\AppData\Local\Android\Sdk\platform-tools
+C:\Program Files\gradle-6.3\bin

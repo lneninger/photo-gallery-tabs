@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
-import { ExploreContainerComponent } from '../explore-container/explore-container.component';
 import { GalleryService } from '../shared/camera/gallery.service';
 import { GalleryPhoto } from '@capacitor/camera';
 
@@ -10,7 +9,7 @@ import { GalleryPhoto } from '@capacitor/camera';
   styleUrls: ['tab1.page.scss'],
   standalone: true,
   providers: [GalleryService],
-  imports: [IonicModule, ExploreContainerComponent],
+  imports: [IonicModule],
 })
 export class Tab1Page implements OnInit {
   pictures: GalleryPhoto[] = [];

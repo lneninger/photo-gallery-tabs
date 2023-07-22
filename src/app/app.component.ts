@@ -1,8 +1,11 @@
 import { Component, EnvironmentInjector, inject } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
-import { provideFirebaseApp, getApp, initializeApp } from 'firebase/app';
-import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { AngularFireStorageModule } from '@angular/fire/compat/storage';
+
 
 @Component({
   selector: 'app-root',
@@ -12,8 +15,9 @@ import { getFirestore, provideFirestore } from '@angular/fire/firestore';
   imports: [
     IonicModule,
     CommonModule,
-      provideFirebaseApp(() => initializeApp({ ... })),
-      provideFirestore(() => getFirestore()),
+      // AngularFireAuthModule,
+      // AngularFirestoreModule,
+      // AngularFireStorageModule
   ],
 })
 export class AppComponent {

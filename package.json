@@ -9,7 +9,10 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "lint": "ng lint"
+    "lint": "ng lint",
+
+    "emulator": "emulator -avd -name emulator34",
+    "ionic:run": "ionic capacitor run android -l --external"
   },
   "private": true,
   "dependencies": {

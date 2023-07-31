@@ -6,11 +6,12 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "start:firebase": "firebase emulators:start --only \"auth,functions,firestore,pubsub\" --inspect-functions --import=\"./firestore-export\" --export-on-exit",
+    "start:firebase:functions": "npm --prefix ./functions run serve:watch",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint",
-
     "emulator": "emulator -avd -name emulator34",
     "ionic:run": "ionic capacitor run android -l --external"
   },
@@ -25,6 +26,7 @@
     "@angular/platform-browser": "^16.0.0",
     "@angular/platform-browser-dynamic": "^16.0.0",
     "@angular/router": "^16.0.0",
+    "@angular/service-worker": "^16.0.0",
     "@capacitor/android": "5.1.0",
     "@capacitor/app": "5.0.5",
     "@capacitor/camera": "^5.0.5",
@@ -34,9 +36,10 @@
     "@capacitor/keyboard": "5.0.5",
     "@capacitor/preferences": "^5.0.5",
     "@capacitor/status-bar": "5.0.5",
+    "@google-cloud/pubsub": "^3.7.3",
     "@ionic/angular": "^7.0.0",
     "@ionic/pwa-elements": "^3.1.1",
-    "firebase": "^10.1.0",
+    "firebase": "^9.9.3",
     "ionicons": "^7.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",

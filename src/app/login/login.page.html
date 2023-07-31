@@ -10,7 +10,7 @@
       <ion-col size="12">
         <ion-item>
           <ion-label position="floating">Email</ion-label>
-          <ion-input type="email" [(ngModel)]="this.email"></ion-input>
+          <ion-input type="email" label="Email" [(ngModel)]="this.email"></ion-input>
         </ion-item>
       </ion-col>
     </ion-row>
@@ -18,13 +18,25 @@
       <ion-col size="12">
         <ion-item>
           <ion-label position="floating">Password</ion-label>
-          <ion-input type="password" [(ngModel)]="this.password"></ion-input>
+          <ion-input type="password" label="Password" [(ngModel)]="this.password"></ion-input>
         </ion-item>
       </ion-col>
     </ion-row>
-    <ion-row>
-      <ion-col size="12">
-        <ion-button expand="block" (click)="this.login()">Login</ion-button>
-      </ion-col>
-    </ion-row>
   </ion-grid>
+
+    <ion-card *ngIf="this.service.authError" color="danger">
+      <ion-card-header>
+        <ion-card-title>Error</ion-card-title>
+        <ion-card-subtitle>{{this.service.authError}}</ion-card-subtitle>
+      </ion-card-header>
+    </ion-card>
+
+</ion-content>
+
+
+  <ion-footer>
+    <ion-toolbar>
+        <ion-button type="button" expand="block" shape="round" (click)="this.login()">Login</ion-button>
+    </ion-toolbar>
+  </ion-footer>
+

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { GalleryService } from '../shared/camera/gallery.service';
-import { GalleryPhoto } from '@capacitor/camera';
+import { GalleryImageOptions, GalleryPhoto } from '@capacitor/camera';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-tab1',
@@ -9,7 +10,7 @@ import { GalleryPhoto } from '@capacitor/camera';
   styleUrls: ['tab1.page.scss'],
   standalone: true,
   providers: [GalleryService],
-  imports: [IonicModule],
+  imports: [IonicModule, CommonModule],
 })
 export class Tab1Page implements OnInit {
   pictures: GalleryPhoto[] = [];
@@ -20,7 +21,11 @@ export class Tab1Page implements OnInit {
   }
 
   async selectPictures() {
-    this.pictures = (await this.service.openGallery()).photos;
+    const options: GalleryImageOptions = {
+      width: 50,
+      height: 50
+    };
+    this.pictures = (await this.service.openGallery(options)).photos;
     // const fileName = Date.now() + '.jpeg';
     // this.savePicture(photo, fileName);
   }

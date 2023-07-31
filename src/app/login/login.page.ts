@@ -1,8 +1,9 @@
 import { Component, EnvironmentInjector, inject } from '@angular/core';
-import { IonicModule } from '@ionic/angular';
+import { IonicModule, LoadingController } from '@ionic/angular';
 import { AuthService } from '../services/firebase/auth/auth.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -13,13 +14,30 @@ import { FormsModule } from '@angular/forms';
 })
 export class LoginPage {
 
-  public email: string = '';
-  public password: string = '';
+  public email: string = 'test@test.com';
+  public password: string = '123123';
   public environmentInjector = inject(EnvironmentInjector);
 
-  constructor(private authService: AuthService) {}
+  constructor(
+    public service: AuthService,
+    private loadingCtrl: LoadingController,
+    private router: Router) { }
 
-  public login(): void {
-    this.authService.login(this.email, this.password);
+  public async login(): Promise<void> {
+
+    const loading = await this.loadingCtrl.create({
+      message: 'Authenticating',
+      duration: 3000,
+    });
+    try {
+      await loading.present();
+
+      this.service.setError(undefined);
+      await this.service.login(this.email, this.password);
+      this.router.navigate(['/']);
+
+    } finally {
+      await loading.dismiss();
+    }
   }
 }

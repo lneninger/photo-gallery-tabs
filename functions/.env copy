@@ -1,0 +1,5 @@
+{
+    pubsubs: {
+      appLogTopic: 'TOPIC_APP_LOG'
+      }
+  }

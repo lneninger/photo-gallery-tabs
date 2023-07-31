@@ -1,0 +1,40 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+    {
+      "type": "npm",
+      "script": "emulator",
+      "problemMatcher": [],
+      "label": "npm: emulator",
+      "detail": "emulator -avd emulator34"
+    },
+    {
+      "type": "npm",
+      "script": "start:firebase:functions",
+      "problemMatcher": [],
+      "label": "start:firebase:functions",
+      "detail": "npm --prefix ./functions run build:watch"
+    },
+    {
+      "type": "npm",
+      "script": "start:firebase",
+      "problemMatcher": [],
+      "label": "start:firebase",
+      "detail": "firebase emulators:start --only auth,functions,firestore"
+    },
+    {
+      "type": "npm",
+      "script": "start",
+      "problemMatcher": [],
+      "label": "start",
+      "detail": "ng serve"
+    },
+    {
+      "type": "npm",
+      "script": "ionic:run",
+      "problemMatcher": [],
+      "label": "ionic:run:android",
+      "detail": "ionic capacitor run android -l --external"
+    },
+  ]
+}

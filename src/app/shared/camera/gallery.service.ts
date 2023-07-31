@@ -16,9 +16,11 @@ export class GalleryService{
     return  await Camera.getPhoto(options);
   }
 
-  async openGallery (): Promise<GalleryPhotos> {
-    const options: GalleryImageOptions = {
+  async openGallery (options?: GalleryImageOptions): Promise<GalleryPhotos> {
+    options = {
 
+
+      ...options
     };
     return  await Camera.pickImages(options);
   }

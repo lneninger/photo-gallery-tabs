@@ -8,6 +8,22 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-this.pictures = {{this.pictures.length}}
-  <ion-button expand="block" (click)="this.selectPictures()">Take Photo</ion-button>
+  <!-- this.pictures = {{this.pictures.length}} -->
+  <!-- <ion-button expand="block" (click)="this.selectPictures()">Take Photo</ion-button> -->
+
+  <ion-list lines="full">
+    <ion-item *ngFor="let photo of this.pictures">
+      <ion-thumbnail slot="start">
+        <img alt="{{photo.webPath}}" [src]="photo.webPath" />
+      </ion-thumbnail>
+      <ion-label>{{photo.format}}</ion-label>
+      <!-- {{photo | json}} -->
+    </ion-item>
+  </ion-list>
 </ion-content>
+
+<ion-fab slot="fixed" horizontal="end" vertical="bottom">
+  <ion-fab-button (click)="this.selectPictures()">
+    <ion-icon name="add"></ion-icon>
+  </ion-fab-button>
+</ion-fab>

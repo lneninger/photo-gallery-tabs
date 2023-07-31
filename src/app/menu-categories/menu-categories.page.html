@@ -1,0 +1,22 @@
+<!-- <ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title class="space-x-2">
+      <ion-icon class="fal fa-user"></ion-icon>
+      <ion-label>Menu</ion-label>
+    </ion-title>
+  </ion-toolbar>
+</ion-header> -->
+
+<ion-content [fullscreen]="true">
+  <!-- this.menus = {{this.menus | json }} -->
+  <div class="flex basis-full">
+    <div class="flex basis-4/12 items-stretch" *ngFor="let menu of this.menus" size="3">
+      <ion-card class="w-full h-full">
+        <img [src]="menu.thumbnail" />
+        <ion-card-header>
+          <ion-card-subtitle class="text-xs">{{menu.name}}</ion-card-subtitle>
+        </ion-card-header>
+      </ion-card>
+    </div>
+  </div>
+</ion-content>

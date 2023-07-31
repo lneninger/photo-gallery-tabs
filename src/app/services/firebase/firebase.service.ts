@@ -1,26 +1,41 @@
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { Analytics, getAnalytics } from "firebase/analytics";
+// import { Analytics, getAnalytics } from "firebase/analytics";
 import { Injectable, inject } from '@angular/core';
-import { environment } from 'src/environments/environment';
+// import { environment } from 'src/environments/environment';
 
-import { Firestore, getFirestore } from '@angular/fire/firestore';
-import { Auth, getAuth } from '@angular/fire/auth';
 import { FirebaseApp } from '@angular/fire/app';
 
-@Injectable({providedIn: 'root'})
-export class FirebaseService{
+import { Auth } from '@angular/fire/auth';
+import { Firestore } from '@angular/fire/firestore';
+import { getMessaging, Messaging, onMessage } from "firebase/messaging";
 
-  readonly firestore: Firestore;
+
+@Injectable({ providedIn: 'root' })
+export class FirebaseService {
   readonly auth: Auth;
-  readonly app: FirebaseApp;
-  readonly analytics: Analytics;
-  constructor(){
+  readonly firestore: Firestore;
+  messaging: Messaging;
 
-    // Initialize Firebase
-    this.app = initializeApp(environment.firebase);
-    this.analytics = getAnalytics(this.app);
-    this.firestore = getFirestore(this.app);
-    this.auth = getAuth(this.app);
+  constructor(
+    public readonly app: FirebaseApp,
+    // public readonly auth: AngularFireAuth,
+    // public readonly storage: AngularFireStorage,
+
+  ) {
+    this.auth = inject(Auth);
+    this.firestore = inject(Firestore);
+    this.messaging = getMessaging(app);
+
+    this.initializeListeners();
   }
+  initializeListeners() {
+    debugger
+    onMessage(this.messaging, (payload) => {
+      debugger;
+      console.log('Message received. ', payload);
+      // ...
+    });
+  }
+
+
+
 }

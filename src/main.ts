@@ -17,7 +17,7 @@ import { connectFunctionsEmulator, getFunctions, provideFunctions } from '@angul
 import { getRemoteConfig, provideRemoteConfig } from '@angular/fire/remote-config';
 import { connectStorageEmulator, getStorage, provideStorage } from '@angular/fire/storage';
 import { Messaging } from 'firebase/messaging';
-import { provideServiceWorker } from '@angular/pwa';
+import { provideServiceWorker } from '@angular/service-worker';
 // import { getAnalytics, provideAnalytics } from '@angular/fire/analytics';
 // import { getPerformance, providePerformance } from '@angular/fire/performance';
 // import { getDatabase, provideDatabase } from '@angular/fire/database';
@@ -98,6 +98,10 @@ bootstrapApplication(AppComponent, {
     importProvidersFrom(IonicModule.forRoot({})),
     provideRouter(routes),
     ...extraProviders,
+    provideServiceWorker('ngsw-worker.js', {
+        enabled: !isDevMode(),
+        registrationStrategy: 'registerWhenStable:30000'
+    }),
     provideServiceWorker('ngsw-worker.js', {
         enabled: !isDevMode(),
         registrationStrategy: 'registerWhenStable:30000'

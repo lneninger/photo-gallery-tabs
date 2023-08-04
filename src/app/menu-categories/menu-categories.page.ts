@@ -24,4 +24,8 @@ export class MenuCategoriesPage implements OnInit {
   async ngOnInit(): Promise<void> {
     this.menus = await this.service.getMenus();
   }
+
+  async refresh($event?: Event): Promise<void> {
+    this.menus = await this.service.getMenus();
+  }
 }

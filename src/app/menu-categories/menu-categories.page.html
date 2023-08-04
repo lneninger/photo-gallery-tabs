@@ -7,7 +7,13 @@
   </ion-toolbar>
 </ion-header> -->
 
+
+
 <ion-content [fullscreen]="true">
+  <ion-refresher slot="fixed" (ionRefresh)="this.refresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
   <!-- this.menus = {{this.menus | json }} -->
   <div class="flex basis-full">
     <div class="flex basis-4/12 items-stretch" *ngFor="let menu of this.menus" size="3">

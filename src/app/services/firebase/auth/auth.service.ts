@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Auth, UserCredential, signInWithEmailAndPassword, getAuth } from '@angular/fire/auth';
+import { Auth, UserCredential, signInWithEmailAndPassword, signOut, getAuth } from '@angular/fire/auth';
 import { FirebaseService } from '../firebase.service';
 import { IUser } from './auth.models';
 import { FirebaseError } from 'firebase/app';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
+
   authError: any | undefined;
 
   get user(): IUser | null {
@@ -21,6 +22,15 @@ export class AuthService {
     try {
       const res = await signInWithEmailAndPassword(this.firebaseService.auth, email, password);
       return this.parse(res);
+    } catch (err: FirebaseError | any) {
+      this.setError(err);
+      throw err;
+    }
+  }
+
+  async logout() {
+    try {
+      await signOut(this.firebaseService.auth);
     } catch (err: FirebaseError | any) {
       this.setError(err);
       throw err;

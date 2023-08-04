@@ -10,15 +10,10 @@ export * from './pubsubs/index';
 
 dotenv.config();
 
-
 admin.initializeApp();
-
-
-
 
 const app: express.Express = express();
 middlewares(app);
 api(app);
 
 module.exports.app = functions.https.onRequest(app);
-

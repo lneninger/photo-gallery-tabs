@@ -6,7 +6,7 @@ import { FirebaseApp } from '@angular/fire/app';
 
 import { Auth } from '@angular/fire/auth';
 import { Firestore } from '@angular/fire/firestore';
-import { getMessaging, getToken, Messaging, onMessage } from "firebase/messaging";
+import { getMessaging, getToken, Messaging, onMessage, isSupported } from "firebase/messaging";
 import { environment } from 'src/environments/environment';
 
 
@@ -14,7 +14,7 @@ import { environment } from 'src/environments/environment';
 export class FirebaseService {
   readonly auth: Auth;
   readonly firestore: Firestore;
-  messaging: Messaging;
+  messaging: Messaging | undefined;
 
   constructor(
     public readonly app: FirebaseApp,
@@ -26,26 +26,36 @@ export class FirebaseService {
     this.firestore = inject(Firestore);
 
 
-    this.messaging = getMessaging(app);
-    this.initializeListeners();
+    isSupported().then(supported => {
+      if (supported) {
+        this.messaging = getMessaging(app);
+        this.initializeListeners();
+      }
+    });
   }
+
+  /**
+   * Initialize listeners for messaging service
+   */
   initializeListeners() {
 
-    getToken(this.messaging, { vapidKey: environment.firebase.vapidKey }).then(
-      (currentToken) => {
-        if (currentToken) {
-          console.log("Hurraaa!!! we got the token.....");
-          console.log(currentToken);
-        } else {
-          console.log('No registration token available. Request permission to generate one.');
-        }
-      }).catch((err) => {
-        console.log('An error occurred while retrieving token. ', err);
-      });
+    if (this.messaging) {
+      getToken(this.messaging, { vapidKey: environment.firebase.vapidKey }).then(
+        (currentToken) => {
+          if (currentToken) {
+            console.log("Hurraaa!!! we got the token.....");
+            console.log(currentToken);
+          } else {
+            console.log('No registration token available. Request permission to generate one.');
+          }
+        }).catch((err) => {
+          console.log('An error occurred while retrieving token. ', err);
+        });
 
-    this.requestNotificationPermission();
+      this.requestNotificationPermission();
 
-    this.initializeMessageListeners();
+      this.initializeMessageListeners();
+    }
   }
   initializeMessageListeners() {
     const messaging = getMessaging();

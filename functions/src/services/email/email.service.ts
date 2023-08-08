@@ -12,7 +12,7 @@ export class EmailService {
    * @param {string} content The content of the email
    * @return {Promise<void>} A promise that resolves when the email is sent
    */
-  static sendEmail(email: string, subject: string, content: string) {
+  sendEmail(email: string, subject: string, content: string) {
     const emailConfig = Config.emailConfiguration;
     const smtpTransport: SMTPTransport.Options = {
       host: emailConfig.host,

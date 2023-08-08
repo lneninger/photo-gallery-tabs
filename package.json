@@ -14,7 +14,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "emulator": "emulator -avd -name emulator34",
-    "ionic:run": "ionic capacitor run android -l --external"
+    "ionic:run": "ionic capacitor run android -l --external --prod"
   },
   "private": true,
   "dependencies": {
@@ -28,6 +28,7 @@
     "@angular/platform-browser-dynamic": "^16.1.7",
     "@angular/router": "^16.1.7",
     "@angular/service-worker": "^16.0.0",
+    "@capacitor-community/contacts": "^5.0.4",
     "@capacitor/android": "5.1.0",
     "@capacitor/app": "5.0.5",
     "@capacitor/camera": "^5.0.5",

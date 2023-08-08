@@ -68,7 +68,6 @@ export class FirebaseService {
   }
 
   requestNotificationPermission() {
-    debugger
     Notification.requestPermission().then((permission) => {
       if (permission === 'granted') {
         console.log('Notification permission granted.');

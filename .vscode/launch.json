@@ -7,7 +7,7 @@
         {
           "type": "node",
           "request": "attach",
-          "name": "Debug",
+          "name": "Firebase Functions Debug",
           "port": 9229
         }
     ]

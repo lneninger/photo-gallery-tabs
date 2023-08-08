@@ -1,0 +1,43 @@
+<!-- <ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title class="space-x-2">
+      <ion-icon class="fal fa-user"></ion-icon>
+      <ion-label>Menu</ion-label>
+    </ion-title>
+  </ion-toolbar>
+</ion-header> -->
+
+
+
+<ion-content [fullscreen]="true">
+  <ion-refresher slot="fixed" (ionRefresh)="this.refresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-list #list lines="full">
+    <ng-container *ngFor="let item of this.displayContacts">
+      <ion-item-sliding>
+          <ion-item [routerDirection]="'root'" (click)="this.selectContact(item)">
+            <ion-avatar slot="start">
+              <img alt="" [src]="item.contact.image.base64String" />
+            </ion-avatar>
+            <ion-label>
+              {{item.contact.name.display}}
+            </ion-label>
+
+            <ion-chip>
+              <ion-avatar slot="start">
+                <img alt="usa flag" src="https://vectorflags.s3.amazonaws.com/flags/us-circle-01.png" />
+              </ion-avatar>
+              <ion-label>{{item.contact.phones[0].number}}</ion-label>
+            </ion-chip>
+          </ion-item>
+
+        <ion-item-options side="end">
+          <ion-item-option *ngIf="!item.dbContact" type="button" color="success" (click)="this.addContact(item.contact, $event)">Include</ion-item-option>
+          <ion-item-option *ngIf="item.dbContact" type="button" color="success" (click)="this.deleteContact(item.dbContact, $event)">Delete</ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ng-container>
+  </ion-list>
+</ion-content>

@@ -1,12 +1,13 @@
 import * as admin from 'firebase-admin';
 import * as functions from 'firebase-functions';
-import * as express from 'express';
+import express from 'express';
 import * as dotenv from 'dotenv';
 
 import middlewares from './middlewares/index';
 import api from './api/index';
 
 export * from './pubsubs/index';
+export * from './firestore-listeners/index';
 
 dotenv.config();
 

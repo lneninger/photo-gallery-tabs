@@ -1,4 +1,4 @@
-import { EnvironmentProviders, Provider, enableProdMode, importProvidersFrom, isDevMode } from '@angular/core';
+import { APP_INITIALIZER, EnvironmentProviders, Provider, enableProdMode, importProvidersFrom, isDevMode } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
 import { RouteReuseStrategy, provideRouter } from '@angular/router';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
@@ -18,6 +18,7 @@ import { getRemoteConfig, provideRemoteConfig } from '@angular/fire/remote-confi
 import { connectStorageEmulator, getStorage, provideStorage } from '@angular/fire/storage';
 import { Messaging } from 'firebase/messaging';
 import { provideServiceWorker } from '@angular/service-worker';
+import { HttpClient } from '@angular/common/http';
 // import { getAnalytics, provideAnalytics } from '@angular/fire/analytics';
 // import { getPerformance, providePerformance } from '@angular/fire/performance';
 // import { getDatabase, provideDatabase } from '@angular/fire/database';
@@ -29,26 +30,21 @@ if (environment.production) {
   enableProdMode();
 }
 
+function initializeAppFactory(httpClient: HttpClient): () => Observable<any> {
+  return () => httpClient.get("https://someUrl.com/api/user")
+    .pipe(
+       tap(user => { ... })
+    );
+ }
+
 const extraProviders: Provider[] = [];
-// if(environment.useEmulators) {
-//   extraProviders.push(...[
-//     {provide: 'USE_AUTH_EMULATOR', useValue: 'localhost:9099'},
-//     {provide: 'USE_FIRESTORE_EMULATOR', useValue: 'localhost:8080'},
-//     {provide: 'USE_FUNCTIONS_EMULATOR', useValue: 'localhost:5001'},
-//     {provide: 'USE_DATABASE_EMULATOR', useValue: 'localhost:9000'},
-//     {provide: 'USE_FIRESTORAGE_EMULATOR', useValue: 'localhost:9199'},
-//     {provide: 'USE_FIREMESSAGING_EMULATOR', useValue: 'localhost:5002'},
-//     {provide: 'USE_FIREPUBSUB_EMULATOR', useValue: 'localhost:8085'},
-//   ]);
-// }
+extraProviders.push({
+  provide: APP_INITIALIZER,
+  useClass: AppInitializer,
+  deps: [HttpClient],
+  multi: true
+ });
 
-// const firebaseProviders: EnvironmentProviders = importProvidersFrom([
-//   provideFirebaseApp(() => initializeApp(environment.firebase)),
-//   provideFirestore(() => getFirestore()),
-//   provideAuth(() => getAuth())
-// ]);
-
-// const firebase = AngularFireModule.initializeApp(environment.firebase)
 
 bootstrapApplication(AppComponent, {
   providers: [

@@ -31,5 +31,6 @@ module.exports = {
     "max-len": ["error", { "code": 200, "ignoreComments": true }],
     "import/no-unresolved": 0,
     "indent": ["error", 2],
+    "@typescript-eslint/no-empty-interface": 0,
   },
 };

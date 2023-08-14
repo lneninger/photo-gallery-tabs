@@ -17,7 +17,7 @@ export class AppContactWrapper implements IModelWrapper<IAppContact> {
    * Get the primary email address
    */
   get primaryEmail() {
-    return this.original.emails.find(e => e.isPrimary);
+    return this.original.emails.find((e) => e.isPrimary);
   }
 
 

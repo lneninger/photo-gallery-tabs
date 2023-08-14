@@ -1,10 +1,11 @@
-import * as functions from 'firebase-functions';
+import { onDocumentCreated } from 'firebase-functions/v2/firestore';
 import { IAppDbContact } from '../services/contact/contact.models';
 import { ContactService } from '../services/contact/contact.service';
 
 
-export const oncontactAdded = functions.firestore.document('/users/{useId}/contacts/{contactId}').onCreate(async (snapshot, context) => {
-  const data = snapshot.data() as IAppDbContact;
+export const oncontactAdded = onDocumentCreated('/users/{useId}/contacts/{contactId}', async (event) => {
+  console.log(event);
+  const data = event.data?.data() as IAppDbContact;
   const service = new ContactService();
   await service.onCreate(data);
 });

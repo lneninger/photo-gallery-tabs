@@ -8,8 +8,8 @@ const redirectLoggedInToContacts = () => redirectLoggedInTo(['contacts']);
 export const routes: Routes = [
   {
     path: '',
-    pathMatch: 'full',
-    redirectTo: 'actions',
+    loadComponent: () => import('./main/main.page').then((m) => m.MainPage),
+    canActivate: [AuthGuard], data: { authGuardPipe: redirectUnauthorizedToLogin },
   },
   {
     path: 'login',

@@ -59,8 +59,9 @@ export class AppComponent {
     }
   ];
 
-  constructor(private titleService: Title) {
-    // AngularFireModule.initializeApp(environment.firebase);
+  constructor(
+    private titleService: Title
+    ) {
 
   }
 }

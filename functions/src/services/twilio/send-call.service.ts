@@ -1,13 +1,13 @@
 import { Twilio } from 'twilio';
 
-const accountSid = process.env.TWILIO_ACCOUNT_SID;
-const authToken = process.env.TWILIO_AUTH_TOKEN;
-const client = new Twilio(accountSid, authToken);
 
 /**
  * A service for sending emails
  */
 export class TwilioService {
+  static accountSid = process.env.TWILIO_ACCOUNT_SID;
+  static authToken = process.env.TWILIO_AUTH_TOKEN;
+
   /**
    * Send a voice call
    * @param {number} mobilePhone The number to send the voice call to
@@ -16,6 +16,7 @@ export class TwilioService {
   */
   async sendSMS(mobilePhone: string, message: string, twilioNumber?: string) {
     twilioNumber ??= process.env.TWILIO_NUMBER;
+    const client = new Twilio(TwilioService.accountSid, TwilioService.authToken);
     client.messages
       .create({
         body: message,
@@ -29,6 +30,7 @@ export class TwilioService {
    * @param {string} number The number to send the voice call to
    */
   sendVoiceCall(number: string) {
+    const client = new Twilio(TwilioService.accountSid, TwilioService.authToken);
     client.calls
       .create({
         url: 'http://demo.twilio.com/docs/voice.xml',

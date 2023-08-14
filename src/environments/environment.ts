@@ -5,6 +5,8 @@
 export const environment = {
   production: false,
   useEmulators: true,
+  apiBaseUrl: 'http://localhost:6099/firebase-adminsys-20210823/us-central1/',
+
   firebase: {
     apiKey: "AIzaSyCB9uvGn1SkWww-InRo-xezT8SQjzDKdhQ",
     authDomain: "ionic-app-hipalanet.firebaseapp.com",

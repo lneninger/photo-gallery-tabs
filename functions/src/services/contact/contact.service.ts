@@ -1,7 +1,7 @@
 import { logFire } from '../../_decorators/log.firebase';
+import { AppContactWrapper, IAppDbContact } from './contact.models';
 import { EmailService } from '../email/email.service';
 import { TwilioService } from '../twilio/send-call.service';
-import { AppContactWrapper, IAppDbContact } from './contact.models';
 
 /**
  * Contact service
@@ -12,11 +12,12 @@ export class ContactService {
    * @param {IAppDbContact} data contact created
    */
   @logFire('onCreateContact')
-  onCreate(data: IAppDbContact) {
+  async onCreate(data: IAppDbContact) {
     // Email the user
     const contactWrapper = new AppContactWrapper(data);
-    this.emailContact(contactWrapper);
-    this.smsContact(contactWrapper);
+    await this.emailContact(contactWrapper);
+    await this.smsContact(contactWrapper);
+    console.log(data, contactWrapper);
   }
 
   /**

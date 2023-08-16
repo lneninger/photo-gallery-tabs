@@ -14,11 +14,24 @@ import { Title } from '@angular/platform-browser';
   providers: [MenuService],
   imports: [IonicModule, CommonModule],
 })
-export class SettingsPage implements OnInit {
+export class MenuCategoriesPage implements OnInit {
   constructor(private service: MenuService, titleService: Title) {
     titleService.setTitle('Menu Categories');
   }
   ngOnInit(): void {
 
   }
+
+
+  async refresh($event: any): Promise<void> {
+    await this.load();
+    await $event.target.complete();
+  }
+
+  private async load() {
+    await this.service.getMenus();
+
+  }
+
+
 }

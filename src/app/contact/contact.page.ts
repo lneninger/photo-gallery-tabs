@@ -22,7 +22,6 @@ import { SelectedContactService } from './contact.service';
   imports: [IonicModule, CommonModule, RouterLink],
 })
 export class ContactPage implements OnInit {
-  contacts: any[] = [];
   selectedContact: IAppUIContact | undefined;
   constructor(
     private service: ContactService,

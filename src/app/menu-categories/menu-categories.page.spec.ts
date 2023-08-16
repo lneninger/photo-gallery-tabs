@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Tab1Page } from './settings.page';
+import { MenuCategoriesPage } from './menu-categories.page';
 
 describe('Tab1Page', () => {
-  let component: Tab1Page;
-  let fixture: ComponentFixture<Tab1Page>;
+  let component: MenuCategoriesPage;
+  let fixture: ComponentFixture<MenuCategoriesPage>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Tab1Page],
+      imports: [MenuCategoriesPage],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(Tab1Page);
+    fixture = TestBed.createComponent(MenuCategoriesPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

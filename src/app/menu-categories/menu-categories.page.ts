@@ -5,6 +5,8 @@ import { GalleryImageOptions, GalleryPhoto } from '@capacitor/camera';
 import { CommonModule } from '@angular/common';
 import { MenuService } from '../services/menu/menu.service';
 import { Title } from '@angular/platform-browser';
+import { FirestoreDocumentMapping } from '../services/firebase/firebase.models';
+import { IMenu, MenuWrapper } from '../services/menu/menu.models';
 
 @Component({
   selector: 'app-menu-categories',
@@ -15,6 +17,7 @@ import { Title } from '@angular/platform-browser';
   imports: [IonicModule, CommonModule],
 })
 export class MenuCategoriesPage implements OnInit {
+  menus: FirestoreDocumentMapping<MenuWrapper>[] = [];
   constructor(private service: MenuService, titleService: Title) {
     titleService.setTitle('Menu Categories');
   }
@@ -29,8 +32,8 @@ export class MenuCategoriesPage implements OnInit {
   }
 
   private async load() {
-    await this.service.getMenus();
-
+    this.menus = await this.service.getMenus();
+debugger;
   }
 
 

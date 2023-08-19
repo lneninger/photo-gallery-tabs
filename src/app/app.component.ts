@@ -33,6 +33,11 @@ export class AppComponent {
       icon: 'home'
     },
     {
+      title: 'Menus',
+      url: '/menus',
+      icon: 'grid-outline'
+    },
+    {
       title: 'Contacts',
       url: '/contacts',
       icon: 'person'

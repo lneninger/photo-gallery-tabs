@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { firstValueFrom } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { collection, getDocs } from '@angular/fire/firestore';
+import { FirestoreDocumentMapping } from '../firebase/firebase.models';
 import { FirebaseService } from '../firebase/firebase.service';
-import { collectionGroup, collection, collectionData, getDocs } from '@angular/fire/firestore';
+import { IMenu, MenuWrapper } from './menu.models';
 
 
 @Injectable({ providedIn: 'root' })
@@ -13,11 +13,8 @@ export class MenuService {
     const itemCollection = collection(this.firestoreService.firestore, 'menus');
     const querySnapshot = await getDocs(itemCollection);
 
-    // debugger;
     return querySnapshot.docs.map((doc) => {
-      // doc.data() is never undefined for query doc snapshots
-      // debugger
-      return doc.data();
+      return { id: doc.id, data: new MenuWrapper(doc.data() as IMenu), $original: doc } as FirestoreDocumentMapping<MenuWrapper>;
     });
   }
 }

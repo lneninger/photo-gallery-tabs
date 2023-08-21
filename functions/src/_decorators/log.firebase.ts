@@ -17,15 +17,21 @@ export function logFire(context = 'default') {
       descriptor.value = () => {
         // Call the method with `this` set the object with the method,
         // in case that matters.
-        const result = declaredFn.apply(target);
-
-        // Do the thing you want with the result
-        console.log(context, result);
-        admin.firestore().collection('appLog').doc().set({ context, result });
+        const methodResult = declaredFn.apply(target);
 
 
-        // Return the result from the origin function
-        return result;
+        const logResult = (result: any) => {
+          console.log(context, result);
+          admin.firestore().collection('appLog').doc().set({ context, result });
+          return result;
+        };
+
+        if (methodResult.then) {
+          return (methodResult as Promise<any>).then(logResult, logResult).catch(logResult);
+        } else {
+          logResult(methodResult);
+          return methodResult;
+        }
       };
     }
   };

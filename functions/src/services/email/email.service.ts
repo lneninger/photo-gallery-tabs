@@ -15,14 +15,14 @@ export class EmailService {
   sendEmail(email: string, subject: string, content: string) {
     const emailConfig = Config.emailConfiguration;
     const smtpTransport: SMTPTransport.Options = {
-      host: emailConfig.host,
-      port: emailConfig.port,
-      secure: emailConfig.secure,
-      requireTLS: emailConfig.tls,
+      host: emailConfig.host.value(),
+      port: emailConfig.port.value(),
+      secure: emailConfig.secure.value(),
+      requireTLS: emailConfig.tls.value(),
       // ssl: emailConfig.ssl,
       auth: {
-        user: emailConfig.auth.user,
-        pass: emailConfig.auth.pass,
+        user: emailConfig.auth.user.value(),
+        pass: emailConfig.auth.pass.value(),
       },
     };
 

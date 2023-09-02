@@ -14,15 +14,16 @@
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
-  <!-- this.menus = {{this.menus | json }} -->
   <div class="flex basis-full">
     <div class="flex basis-4/12 items-stretch" *ngFor="let menu of this.menus" size="3">
       <ion-card class="w-full h-full">
-        <img [src]="menu.data.$thumbnail" />
+        <img [src]="menu.data.$thumbnail?.data?.url" />
         <ion-card-header>
-          <ion-card-subtitle class="text-xs">{{menu.data.name}} {{menu.data.$thumbnail}}</ion-card-subtitle>
+          <ion-card-subtitle class="text-xs">{{menu.data.name}}</ion-card-subtitle>
         </ion-card-header>
       </ion-card>
     </div>
   </div>
 </ion-content>
+
+<ion-nav [root]="this.navComponent"></ion-nav>

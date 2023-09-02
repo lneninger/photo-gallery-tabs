@@ -21,7 +21,7 @@ export function configure(app: express.Express) {
       const reqLog = { baseUrl: req.baseUrl, method: req.method, content: req.body };
       const resLog = { statusCode: res.statusCode, content: res.locals.body };
       await pubSubClient
-        .topic(Config.appLogTopic)
+        .topic(Config.appLogTopic.value())
         // .topic((functions.config() as IConfig).pubsub.appLogTopic)
 
         .publishMessage({ json: { req: reqLog, res: resLog, timestamp: Date.now() } });

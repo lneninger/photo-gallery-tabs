@@ -8,7 +8,9 @@
     "strict": true,
     "target": "es2017",
     "esModuleInterop": true,
+    "resolveJsonModule": true,
     "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
   },
   "compileOnSave": true,
   "include": [

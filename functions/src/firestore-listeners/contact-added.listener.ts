@@ -3,7 +3,7 @@ import { IAppDbContact } from '../services/contact/contact.models';
 import { ContactService } from '../services/contact/contact.service';
 
 
-export const oncontactAdded = onDocumentCreated('/users/{useId}/contacts/{contactId}', async (event) => {
+export const onContactAdded = onDocumentCreated('/users/{useId}/contacts/{contactId}', async (event) => {
   console.log(event);
   const data = event.data?.data() as IAppDbContact;
   const service = new ContactService();

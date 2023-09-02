@@ -1,12 +1,13 @@
+import { BooleanParam, IntParam, SecretParam, StringParam } from 'firebase-functions/lib/params/types';
 
 export interface IEmailConfiguration{
-  host: string;
-  port: number;
-  secure: boolean;
-  tls: boolean;
-  ssl: boolean;
+  host: StringParam;
+  port: IntParam;
+  secure: BooleanParam;
+  tls: BooleanParam;
+  ssl: BooleanParam;
   auth: {
-    user: string;
-    pass: string;
+    user: SecretParam;
+    pass: SecretParam;
   };
 }

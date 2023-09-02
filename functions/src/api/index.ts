@@ -8,6 +8,7 @@ import configureSiteConfig from './site/config';
  * @param {express.Express} app Express app instance
  */
 export function configure(app: express.Express) {
+  console.log('configure api', app);
   configureUserCreate(app);
   configureSiteConfig(app);
 }

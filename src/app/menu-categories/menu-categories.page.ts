@@ -7,22 +7,25 @@ import { MenuService } from '../services/menu/menu.service';
 import { Title } from '@angular/platform-browser';
 import { FirestoreDocumentMapping } from '../services/firebase/firebase.models';
 import { IMenu, MenuWrapper } from '../services/menu/menu.models';
+import { ConfigurationService } from '../shared/_configuration/configuration.service';
+import { MenuCategoryPage } from './menu-category/menu-category.page';
 
 @Component({
   selector: 'app-menu-categories',
   templateUrl: 'menu-categories.page.html',
   styleUrls: ['menu-categories.page.scss'],
   standalone: true,
-  providers: [MenuService],
+  providers: [MenuService, ConfigurationService],
   imports: [IonicModule, CommonModule],
 })
 export class MenuCategoriesPage implements OnInit {
+  navComponent = MenuCategoryPage;
   menus: FirestoreDocumentMapping<MenuWrapper>[] = [];
-  constructor(private service: MenuService, titleService: Title) {
+  constructor(private service: MenuService, titleService: Title, private configurationService: ConfigurationService) {
     titleService.setTitle('Menu Categories');
   }
   ngOnInit(): void {
-
+    this.load();
   }
 
 
@@ -32,8 +35,7 @@ export class MenuCategoriesPage implements OnInit {
   }
 
   private async load() {
-    this.menus = await this.service.getMenus();
-debugger;
+    this.menus = this.configurationService.menus.map(menu => ({ ...menu, data: new MenuWrapper(menu.data as IMenu) }));
   }
 
 

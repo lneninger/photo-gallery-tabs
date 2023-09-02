@@ -3,13 +3,19 @@ import { collection, getDocs } from '@angular/fire/firestore';
 import { FirestoreDocumentMapping } from '../firebase/firebase.models';
 import { FirebaseService } from '../firebase/firebase.service';
 import { IMenu, MenuWrapper } from './menu.models';
+import { ConfigurationService } from 'src/app/shared/_configuration/configuration.service';
 
 
 @Injectable({ providedIn: 'root' })
 export class MenuService {
-  constructor(private firestoreService: FirebaseService) { }
+  constructor(
+    private configurationService: ConfigurationService,
+    private firestoreService: FirebaseService
+  ) { }
 
   async getMenus() {
+    return this.configurationService.menus;
+
     const itemCollection = collection(this.firestoreService.firestore, 'menus');
     const querySnapshot = await getDocs(itemCollection);
 

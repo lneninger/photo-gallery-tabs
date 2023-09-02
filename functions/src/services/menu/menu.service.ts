@@ -20,7 +20,6 @@ export class MenuService {
         (parent as FirestoreDocumentMapping<any>[]).push(document);
         return document;
       }
-
       return null;
     };
 

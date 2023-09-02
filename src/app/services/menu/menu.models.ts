@@ -1,18 +1,20 @@
+import { FirestoreDocumentMapping } from '../firebase/firebase.models';
+
 export interface IMenuWrapper {
   name: string | undefined;
-  images: IMenuImage[] | undefined;
-  subcategories: IMenuWrapper[] | undefined;
+  images: FirestoreDocumentMapping<IMenuImage>[] | undefined;
+  subcategories: FirestoreDocumentMapping<IMenuWrapper>[] | undefined;
   receipies: IRecipe[] | undefined;
 }
 
 export class MenuWrapper implements IMenuWrapper {
   name: string | undefined;
-  images: IMenuImage[] | undefined;
-  subcategories: IMenuWrapper[] | undefined;
+  images: FirestoreDocumentMapping<IMenuImage>[] | undefined;
+  subcategories: FirestoreDocumentMapping<IMenuWrapper>[] | undefined;
   receipies: IRecipe[] | undefined;
 
   get $thumbnail() {
-    return this.images?.find(image => image.type === MenuImageType.thumbnail);
+    return this.images?.find(image => image.data.type == MenuImageType.thumbnail);
   }
   constructor(input: Partial<IMenuWrapper>) {
     Object.assign(this, input);

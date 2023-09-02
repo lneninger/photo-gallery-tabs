@@ -1,5 +1,8 @@
 {
   "projects": {
-    "default": "ionic-app-hipalanet"
-  }
+    "default": "ionic-app-hipalanet",
+    "dev": "ionic-app-hipalanet"
+  },
+  "targets": {},
+  "etags": {}
 }

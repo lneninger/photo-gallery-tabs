@@ -2,7 +2,7 @@ import * as admin from 'firebase-admin';
 import { CollectionReference, DocumentReference } from 'firebase-admin/firestore';
 
 
-export const traverseFromRoot = async function(onDocument: (doc: DocumentReference) => Promise<any>, onCollection: (coll: CollectionReference) => Promise<any>) {
+export const traverseFromRoot = async (onDocument: (doc: DocumentReference) => Promise<any>, onCollection: (coll: CollectionReference) => Promise<any>) => {
   const children = await admin.firestore().listCollections();
   const result: any = {};
   for (const child of children) {
@@ -12,7 +12,7 @@ export const traverseFromRoot = async function(onDocument: (doc: DocumentReferen
   return result;
 };
 
-export const traverseFromPath = async function(path: string, onDocument: (doc: DocumentReference) => Promise<any>, onCollection: (coll: CollectionReference) => Promise<any>) {
+export const traverseFromPath = async (path: string, onDocument: (doc: DocumentReference) => Promise<any>, onCollection: (coll: CollectionReference) => Promise<any>) => {
   const countLevels = path.split('/').length;
   const isDocPath = countLevels % 2 === 0;
   const node = isDocPath ? admin.firestore().doc(path) : admin.firestore().collection(path);
@@ -24,7 +24,8 @@ export const traverseFromPath = async function(path: string, onDocument: (doc: D
  * @param {any} node
  * @param {any} onDocument
  * @param {any} onCollection
- * @return
+ * @param {any} parent
+ * @return {any} tree structure
  */
 async function visit(node: any, onDocument: (doc: DocumentReference, parent: any) => Promise<any>, onCollection: (coll: CollectionReference, parent: any) => Promise<any>, parent?: any) {
   const isDocNode = typeof node.listCollections === 'function';

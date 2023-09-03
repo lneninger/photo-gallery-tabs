@@ -1,17 +1,13 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { IonList, IonicModule, ItemSlidingCustomEvent, LoadingController, RefresherCustomEvent } from '@ionic/angular';
+import { Component, OnInit } from '@angular/core';
+import { IonicModule, LoadingController } from '@ionic/angular';
 
 import { CommonModule } from '@angular/common';
-import { MenuService } from '../services/menu/menu.service';
 import { Title } from '@angular/platform-browser';
+import { MenuService } from '../services/menu/menu.service';
 
-import { ContactPayload, Contacts, EmailType, GetContactResult, GetContactsResult, PhoneType, PostalAddressType, Projection } from '@capacitor-community/contacts';
-import { ContactService } from '../services/contact/contact.service';
-import { Router, RouterLink } from '@angular/router';
-import { FirestoreDocumentMapping } from '../services/firebase/firebase.models';
-import { IAppContact, IAppUIContact } from '../services/contact/contact.models';
+import { IAppUIContact } from '../services/contact/contact.models';
 import { DeviceService } from '../services/device/device.service';
-import { SimCard } from '@jonz94/capacitor-sim';
+// import { SimCard } from '@jonz94/capacitor-sim';
 
 
 @Component({
@@ -25,7 +21,7 @@ import { SimCard } from '@jonz94/capacitor-sim';
 export class MainPage implements OnInit {
   contacts: any[] = [];
   selectedContact: IAppUIContact | undefined;
-  deviceSimCards: SimCard[] = [];
+  // deviceSimCards: SimCard[] = [];
   constructor(
     private deviceService: DeviceService,
     titleService: Title,
@@ -35,7 +31,7 @@ export class MainPage implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
-    this.deviceSimCards = await this.deviceService.getSimCards();
+    // this.deviceSimCards = await this.deviceService.getSimCards();
   }
 
 

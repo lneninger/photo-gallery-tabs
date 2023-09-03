@@ -16,7 +16,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "emulator": "emulator -avd emulator34",
-    "ionic:run": "ionic capacitor run android -l --external --prod"
+    "ionic:run": "ionic capacitor run android -l --external --verbose"
   },
   "private": true,
   "dependencies": {
@@ -42,7 +42,6 @@
     "@capacitor/status-bar": "5.0.5",
     "@ionic/angular": "^7.0.0",
     "@ionic/pwa-elements": "^3.1.1",
-    "@jonz94/capacitor-sim": "^2.0.0",
     "@state-adapt/angular": "^1.2.1",
     "@state-adapt/core": "^1.2.1",
     "@state-adapt/rxjs": "^1.2.1",

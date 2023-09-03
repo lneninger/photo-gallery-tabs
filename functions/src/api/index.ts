@@ -1,7 +1,10 @@
 
 import * as express from 'express';
 import configureUserCreate from './users/create';
-import configureSiteConfig from './site/config';
+// import configureSiteConfig from './site/config';
+
+export * from './users/create';
+export * from './site/config';
 
 /**
  *
@@ -9,9 +12,9 @@ import configureSiteConfig from './site/config';
  */
 export function configure(app: express.Express) {
   console.log('configure api', app);
-  configureUserCreate(app);
-  configureSiteConfig(app);
-}
 
+  configureUserCreate(app);
+  // configureSiteConfig(app);
+}
 
 export default configure;

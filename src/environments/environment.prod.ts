@@ -1,6 +1,7 @@
 export const environment = {
   production: true,
   useEmulators: false,
+  apiBaseUrl: 'https://us-central1-ionic-app-hipalanet.cloudfunctions.net',
   firebase: {
     apiKey: "AIzaSyCB9uvGn1SkWww-InRo-xezT8SQjzDKdhQ",
   authDomain: "ionic-app-hipalanet.firebaseapp.com",

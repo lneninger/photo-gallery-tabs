@@ -9,6 +9,9 @@ import middlewares from './middlewares/index';
 
 import api from './api/index';
 
+
+export * from './api/index';
+
 export * from './pubsubs/index';
 export * from './firestore-listeners/index';
 

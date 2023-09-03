@@ -7,6 +7,6 @@ export class AppInitializer{
   static data: IInitializerModel;
 
   static async initializeApp(http: HttpClient): Promise<any> {
-    AppInitializer.data = await firstValueFrom(http.get<IInitializerModel>(`${environment.apiBaseUrl}/config`));
+    AppInitializer.data = await firstValueFrom(http.get<IInitializerModel>(`${environment.apiBaseUrl}/getConfig`));
 }
 }

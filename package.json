@@ -11,6 +11,7 @@
     "deploy:firebase:functions": "npm --prefix ./functions run deploy",
     "deploy": "npm --prefix ./functions run deploy",
     "build": "ng build",
+    "build:prod": "ng build -c production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint",

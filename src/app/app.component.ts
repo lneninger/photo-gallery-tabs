@@ -1,14 +1,8 @@
-import { Component, EnvironmentInjector, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
-import { AngularFireModule } from '@angular/fire/compat';
-import { environment } from 'src/environments/environment';
 import { Router, RouterModule } from '@angular/router';
 import { Title } from '@angular/platform-browser';
-// import { AngularFireAuthModule } from '@angular/fire/compat/auth';
-// import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
-// import { AngularFireStorageModule } from '@angular/fire/compat/storage';
-
 
 @Component({
   selector: 'app-root',

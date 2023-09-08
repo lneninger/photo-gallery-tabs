@@ -9,21 +9,46 @@
 
 
 
-<ion-content [fullscreen]="true">
+<ion-content fullscreen="true">
   <ion-refresher slot="fixed" (ionRefresh)="this.refresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
-
   <div class="flex basis-full">
-    <div class="flex basis-4/12 items-stretch" *ngFor="let menu of this.menus" size="3">
-      <ion-card class="w-full h-full">
-        <img [src]="menu.data.$thumbnail?.data?.url" />
-        <ion-card-header>
-          <ion-card-subtitle class="text-xs">{{menu.data.name}}</ion-card-subtitle>
+    <div class="flex basis-6/12 md:basis-4/12 h-[25vh] items-stretch" *ngFor="let menu of this.menu?.subcategories" size="3">
+      <ion-card class="w-full h-full bg-no-repeat bg-cover bg-center bg-fixed relative"
+      (click)="this.selectMenu(menu, $event)">
+        <img [src]="menu.data.$thumbnail?.data?.url" class="absolute top-0 right-0 bottom-0 left-0 object-fill w-full h-full" />
+        <ion-card-header class="p-0 bg-white/80">
+          <ion-card-title class="text-xs text-center drop-shadow-2xl">{{menu.data.name}}</ion-card-title>
+          <ion-card-subtitle class="text-xs text-center">{{menu.data.name}}</ion-card-subtitle>
         </ion-card-header>
       </ion-card>
     </div>
   </div>
+
+  <div class="flex basis-full">
+    <div class="flex basis-6/12 md:basis-4/12 h-[25vh] items-stretch" *ngFor="let recipe of this.menu?.recipes" size="3">
+      <ion-card class="w-full h-full relative"
+      >
+      recipe.data.$thumbnail?.data?.url = {{recipe.data.$thumbnail?.data?.url}}
+        <img [src]="recipe.data.$thumbnail?.data?.url" class="absolute top-0 right-0 bottom-0 left-0 object-fill w-full h-full" />
+        <ion-card-header class="bg-white/80">
+          <ion-card-title class="text-xs text-center drop-shadow-2xl">{{recipe.data.name}}</ion-card-title>
+          <ion-card-subtitle class="text-xs text-center">{{recipe.data.name}}</ion-card-subtitle>
+        </ion-card-header>
+      </ion-card>
+    </div>
+  </div>
+
+
 </ion-content>
 
-<ion-nav [root]="this.navComponent"></ion-nav>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-nav-link>
+      <ion-button>Back</ion-button>
+    </ion-nav-link>
+  </ion-toolbar>
+</ion-footer>
+<!-- <ion-nav [root]="this.navComponent"></ion-nav> -->

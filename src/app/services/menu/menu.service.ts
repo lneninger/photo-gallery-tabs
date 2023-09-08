@@ -2,25 +2,35 @@ import { Injectable } from '@angular/core';
 import { collection, getDocs } from '@angular/fire/firestore';
 import { FirestoreDocumentMapping } from '../firebase/firebase.models';
 import { FirebaseService } from '../firebase/firebase.service';
-import { IMenu, MenuWrapper } from './menu.models';
+import { IMenu, IMenuWrapper, MenuWrapper } from './menu.models';
 import { ConfigurationService } from 'src/app/shared/_configuration/configuration.service';
+import { MenuState } from './menu.state';
+import { httpsCallable } from 'firebase/functions';
+import { firstValueFrom } from 'rxjs';
 
 
 @Injectable({ providedIn: 'root' })
 export class MenuService {
+
+
   constructor(
     private configurationService: ConfigurationService,
-    private firestoreService: FirebaseService
+    private service: FirebaseService,
+    private state: MenuState
   ) { }
 
   async getMenus() {
-    return this.configurationService.menus;
-
-    const itemCollection = collection(this.firestoreService.firestore, 'menus');
-    const querySnapshot = await getDocs(itemCollection);
-
-    return querySnapshot.docs.map((doc) => {
-      return { id: doc.id, data: new MenuWrapper(doc.data() as IMenu), $original: doc } as FirestoreDocumentMapping<MenuWrapper>;
-    });
+    const fn = httpsCallable<any, FirestoreDocumentMapping<IMenuWrapper>[]>(this.service.fns, 'getMenus');
+    const menus = await (await fn.call({})).data;
+    this.state.setMenus(menus);
   }
+
+  selectMenu(menu: FirestoreDocumentMapping<IMenuWrapper>) {
+    this.state.setSelectedMenuId(menu.id);
+  }
+
+  selectSelectedMenuId(id: string | undefined) {
+    this.state.setSelectedMenuId(id);
+  }
+
 }

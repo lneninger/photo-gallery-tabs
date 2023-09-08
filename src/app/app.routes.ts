@@ -38,6 +38,11 @@ export const routes: Routes = [
       import('./menu-categories/menu-categories.page').then((m) => m.MenuCategoriesPage),
   },
   {
+    path: 'menus/:id',
+    loadComponent: () =>
+      import('./menu-categories/menu-categories.page').then((m) => m.MenuCategoriesPage),
+  },
+  {
     path: 'actions',
     loadChildren: () => import('./tabs/tabs.routes').then((m) => m.routes),
     canActivate: [AuthGuard], data: { authGuardPipe: redirectUnauthorizedToLogin }

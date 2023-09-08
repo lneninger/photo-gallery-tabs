@@ -4,6 +4,7 @@ import configureUserCreate from './users/create';
 // import configureSiteConfig from './site/config';
 
 export * from './users/create';
+export * from './menus/get';
 export * from './site/config';
 
 /**

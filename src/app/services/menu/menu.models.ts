@@ -4,20 +4,23 @@ export interface IMenuWrapper {
   name: string | undefined;
   images: FirestoreDocumentMapping<IMenuImage>[] | undefined;
   subcategories: FirestoreDocumentMapping<IMenuWrapper>[] | undefined;
-  receipies: IRecipe[] | undefined;
+  recipes?: FirestoreDocumentMapping<IRecipe>[] | undefined;
+  $thumbnail?: FirestoreDocumentMapping<IMenuImage> | undefined;
 }
 
 export class MenuWrapper implements IMenuWrapper {
   name: string | undefined;
   images: FirestoreDocumentMapping<IMenuImage>[] | undefined;
   subcategories: FirestoreDocumentMapping<IMenuWrapper>[] | undefined;
-  receipies: IRecipe[] | undefined;
+  recipes?: FirestoreDocumentMapping<IRecipe>[] | undefined;
 
   get $thumbnail() {
     return this.images?.find(image => image.data.type == MenuImageType.thumbnail);
   }
   constructor(input: Partial<IMenuWrapper>) {
     Object.assign(this, input);
+    this.subcategories = this.subcategories?.map(subcategory => ({ ...subcategory, data: new MenuWrapper(subcategory.data as IMenuWrapper) }));
+    this.recipes = this.recipes?.map(recipe => ({ ...recipe, data: new Recipe(recipe.data as IRecipe) }));
   }
 }
 
@@ -30,8 +33,25 @@ export interface IRecipe {
   name: string | undefined;
   description: string | undefined;
   toppings: IRecipeTopping[] | undefined;
+  images: FirestoreDocumentMapping<IMenuImage>[] | undefined;
   sizes: IRecipeSize[] | undefined;
+  $thumbnail?: FirestoreDocumentMapping<IMenuImage> | undefined;
 }
+
+export class Recipe implements IRecipe {
+  name: string | undefined;
+  description: string | undefined;
+  toppings: IRecipeTopping[] | undefined;
+  sizes: IRecipeSize[] | undefined;
+  images: FirestoreDocumentMapping<IMenuImage>[] | undefined;
+  get $thumbnail() {
+    return this.images?.find(image => image.data.type == MenuImageType.thumbnail) ?? this.images?.[0];
+  }
+  constructor(input: Partial<IRecipe>){
+    Object.assign(this, input);
+  }
+}
+
 
 export interface IRecipeTopping {
   name: string;

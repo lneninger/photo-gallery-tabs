@@ -16,10 +16,13 @@
     "test": "ng test",
     "lint": "ng lint",
     "emulator": "emulator -avd emulator34",
-    "ionic:run": "ionic capacitor run android -l --external --verbose"
+    "ionic:run": "ionic build && ionic capacitor run android -l --external --verbose"
   },
   "private": true,
   "dependencies": {
+    "@angular-ru/cdk": "^14.10.1",
+    "@angular-ru/common": ">=15.262.0",
+    "@angular-ru/ngxs": "^14.1.4",
     "@angular/animations": "^16.1.7",
     "@angular/common": "^16.1.7",
     "@angular/compiler": "^16.1.7",
@@ -42,12 +45,11 @@
     "@capacitor/status-bar": "5.0.5",
     "@ionic/angular": "^7.0.0",
     "@ionic/pwa-elements": "^3.1.1",
-    "@state-adapt/angular": "^1.2.1",
-    "@state-adapt/core": "^1.2.1",
-    "@state-adapt/rxjs": "^1.2.1",
+    "@ngxs/store": "^3.8.1",
     "cordova-plugin-ionic": "^5.5.3",
     "firebase": "^9.9.3",
     "ionicons": "^7.0.0",
+    "ngx-auto-unsubscribe": "^3.0.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.13.0"
@@ -64,6 +66,7 @@
     "@angular/language-service": "^16.1.7",
     "@capacitor/cli": "5.1.0",
     "@ionic/angular-toolkit": "^9.0.0",
+    "@ngxs/devtools-plugin": "^3.8.1",
     "@types/jasmine": "~4.3.0",
     "@types/node": "^12.11.1",
     "@typescript-eslint/eslint-plugin": "5.3.0",

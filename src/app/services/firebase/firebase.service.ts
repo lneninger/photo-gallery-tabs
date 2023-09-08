@@ -6,6 +6,7 @@ import { FirebaseApp } from '@angular/fire/app';
 
 import { Auth } from '@angular/fire/auth';
 import { Firestore } from '@angular/fire/firestore';
+import { Functions } from '@angular/fire/functions';
 import { getMessaging, getToken, Messaging, onMessage, isSupported } from "firebase/messaging";
 import { environment } from 'src/environments/environment';
 
@@ -15,6 +16,7 @@ export class FirebaseService {
   readonly auth: Auth;
   readonly firestore: Firestore;
   messaging: Messaging | undefined;
+  fns: Functions;
 
   constructor(
     public readonly app: FirebaseApp,
@@ -24,6 +26,7 @@ export class FirebaseService {
   ) {
     this.auth = inject(Auth);
     this.firestore = inject(Firestore);
+    this.fns = inject(Functions);
 
 
     isSupported().then(supported => {

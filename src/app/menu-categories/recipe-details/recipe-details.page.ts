@@ -10,15 +10,14 @@ import { IMenu, MenuWrapper } from '../../services/menu/menu.models';
 import { ConfigurationService } from '../../shared/_configuration/configuration.service';
 
 @Component({
-  selector: 'app-menu-category',
-  templateUrl: 'menu-category.page.html',
-  styleUrls: ['menu-category.page.scss'],
+  selector: 'app-recipe-details',
+  templateUrl: 'recipe-details.page.html',
+  styleUrls: ['recipe-details.page.scss'],
   standalone: true,
   providers: [MenuService, ConfigurationService],
   imports: [IonicModule, CommonModule],
 })
-export class MenuCategoryPage implements OnInit {
-  navComponent = MenuCategoryPage;
+export class RecipeDetailsPage implements OnInit {
   @Input() menus: FirestoreDocumentMapping<MenuWrapper>[] = [];
   constructor(private service: MenuService, titleService: Title, private configurationService: ConfigurationService) {
     titleService.setTitle('Menu Categories');

@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MenuCategoryPage } from './menu-category.page';
+import { MenuCategoryPage } from './recipe-details.page';
 
 describe('Tab1Page', () => {
   let component: MenuCategoryPage;

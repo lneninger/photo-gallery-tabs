@@ -1,14 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { IonicModule, RefresherCustomEvent } from '@ionic/angular';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { IonNav, IonicModule, RefresherCustomEvent } from '@ionic/angular';
 import { GalleryService } from '../shared/camera/gallery.service';
 import { GalleryImageOptions, GalleryPhoto } from '@capacitor/camera';
 import { CommonModule } from '@angular/common';
 import { MenuService } from '../services/menu/menu.service';
 import { Title } from '@angular/platform-browser';
 import { FirestoreDocumentMapping } from '../services/firebase/firebase.models';
-import { IMenu, IMenuWrapper, MenuWrapper } from '../services/menu/menu.models';
+import { IMenu, IMenuWrapper, IRecipe, MenuWrapper } from '../services/menu/menu.models';
 import { ConfigurationService } from '../shared/_configuration/configuration.service';
-import { MenuCategoryPage } from './menu-category/menu-category.page';
+import { RecipeDetailsPage } from './recipe-details/recipe-details.page';
 import { MenuState } from '../services/menu/menu.state';
 import { map } from 'rxjs/operators';
 import { BaseComponent } from '../shared/base.component';
@@ -26,7 +26,8 @@ import { ActivatedRoute, Router } from '@angular/router';
   imports: [IonicModule, CommonModule],
 })
 export class MenuCategoriesPage extends BaseComponent implements OnInit {
-  navComponent = MenuCategoryPage;
+  recipeDetailsComponent = RecipeDetailsPage;
+  @ViewChild('nav') recipeDetails!: IonNav;
   menus: FirestoreDocumentMapping<MenuWrapper>[] = [];
   menu: MenuWrapper | undefined = undefined;
   constructor(
@@ -70,4 +71,8 @@ export class MenuCategoriesPage extends BaseComponent implements OnInit {
     // this.service.selectMenu(menu);
   }
 
+  selectRecipe(recipe: FirestoreDocumentMapping<IRecipe>, $event?: Event) {
+    this.router.navigate(['recipes', recipe.id], {});
+    this.recipeDetails
+  }
 }

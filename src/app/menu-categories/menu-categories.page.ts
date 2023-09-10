@@ -47,13 +47,13 @@ export class MenuCategoriesPage extends BaseComponent implements OnInit {
     this.load();
 
     this.route.paramMap.pipe(map(params => params.get('id'))).subscribe((id) => {
-      this.service.selectSelectedMenuId(id ?? undefined);
+      this.service.setSelectedMenuId(id ?? undefined);
     });
   }
 
 
   async refresh($event: any): Promise<void> {
-    await this.load();
+    // await this.load();
     await $event.target.complete();
   }
 
@@ -72,7 +72,12 @@ export class MenuCategoriesPage extends BaseComponent implements OnInit {
   }
 
   selectRecipe(recipe: FirestoreDocumentMapping<IRecipe>, $event?: Event) {
-    this.router.navigate(['recipes', recipe.id], {});
+    const menuId = this.route.snapshot.paramMap.get('id');
+    if (menuId == undefined) {
+      this.router.navigate(['recipes', recipe.id], {});
+    } else {
+      this.router.navigate(['menus', menuId, 'recipes', recipe.id], {});
+    }
     this.recipeDetails
   }
 }

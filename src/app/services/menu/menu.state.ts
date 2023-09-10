@@ -3,12 +3,13 @@ import { Computed, DataAction, Payload, StateRepository } from '@angular-ru/ngxs
 import { NgxsDataRepository } from '@angular-ru/ngxs/repositories';
 import { Injectable } from '@angular/core';
 import { FirestoreDocumentMapping } from '../firebase/firebase.models';
-import { IMenu, IMenuWrapper, MenuWrapper } from './menu.models';
+import { IMenu, IMenuWrapper, IRecipe, MenuWrapper, Recipe } from './menu.models';
 import { AppInitializer } from 'src/app/app.initializer';
 
 export interface IMenuStateModel {
   menus?: FirestoreDocumentMapping<IMenuWrapper>[] | undefined;
   selectedMenuId?: string | undefined;
+  selectedRecipeId?: string | undefined;
 }
 
 @StateRepository()
@@ -27,6 +28,10 @@ export class MenuState extends NgxsDataRepository<IMenuStateModel> {
     return state.selectedMenuId;
   }
 
+  @Selector() static selectedRecipeIdSelector(state: IMenuStateModel) {
+    return state.selectedRecipeId;
+  }
+
   @Selector([MenuState.selectedMenuIdSelector, MenuState.menusSelector]) static selectedMenuSelector(menuId: string, menus: FirestoreDocumentMapping<IMenuWrapper>[] | undefined) {
     if (menuId) {
       const menu = MenuState.retrieveSelectedMenu(menuId, menus);
@@ -38,6 +43,17 @@ export class MenuState extends NgxsDataRepository<IMenuStateModel> {
         subcategories: menus?.map(menu => ({ ...menu, data: new MenuWrapper(menu.data as IMenu) })) ?? [],
       });
     }
+  }
+
+  @Selector([MenuState.selectedMenuIdSelector, MenuState.menusSelector, MenuState.selectedRecipeIdSelector]) static selectedRecipeSelector(menuId: string, menus: FirestoreDocumentMapping<IMenuWrapper>[] | undefined, recipeId: string | undefined,) {
+    if (menuId) {
+      const menu = MenuState.retrieveSelectedMenu(menuId, menus);
+      const recipe = menu?.data.recipes?.find(recipe => recipe.id === recipeId);
+      if (recipe) {
+        return new Recipe(recipe.data as IRecipe);
+      }
+    }
+    return undefined;
   }
 
   get menus() {
@@ -80,8 +96,13 @@ export class MenuState extends NgxsDataRepository<IMenuStateModel> {
     this.ctx.setState((state) => ({ ...state, selectedMenuId: id }));
   }
 
+  @DataAction() setSelectedRecipeId(@Payload('id') id: string | undefined) {
+    this.ctx.setState((state) => ({ ...state, selectedRecipeId: id }));
+  }
 
-  private static  retrieveSelectedMenu(menuId: string, menus: FirestoreDocumentMapping<IMenuWrapper>[] | undefined): FirestoreDocumentMapping<IMenuWrapper> | undefined {
+
+
+  private static retrieveSelectedMenu(menuId: string, menus: FirestoreDocumentMapping<IMenuWrapper>[] | undefined): FirestoreDocumentMapping<IMenuWrapper> | undefined {
 
     for (const menu of menus || []) {
       if (menu.id === menuId) {

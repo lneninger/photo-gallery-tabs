@@ -31,7 +31,6 @@
       <ion-card class="w-full h-full bg-no-repeat bg-cover bg-center bg-fixed relative"
       (click)="this.selectRecipe(recipe, $event)"
       >
-      recipe.data.$thumbnail?.data?.url = {{recipe.data.$thumbnail?.data?.url}}
         <img [src]="recipe.data.$thumbnail?.data?.url" class="absolute top-0 right-0 bottom-0 left-0 object-fill w-full h-full" />
         <ion-card-header class="p-0 bg-white/80">
           <ion-card-title class="text-xs text-center drop-shadow-2xl">{{recipe.data.name}}</ion-card-title>

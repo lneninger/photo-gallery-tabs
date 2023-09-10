@@ -29,8 +29,12 @@ export class MenuService {
     this.state.setSelectedMenuId(menu.id);
   }
 
-  selectSelectedMenuId(id: string | undefined) {
+  setSelectedMenuId(id: string | undefined) {
     this.state.setSelectedMenuId(id);
+  }
+
+  setSelectedRecipeId(id: string | undefined) {
+    this.state.setSelectedRecipeId(id);
   }
 
 }

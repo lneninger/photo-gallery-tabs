@@ -2,7 +2,7 @@
 
   <ion-content fullscreen="true">
 
-    <div class="flex basis-full">
+    <div class="flex-100 flex-col mb-2">
       <div class="flex basis-6/12 md:basis-4/12 h-[25vh] items-stretch" size="3">
         <ion-card class="w-full h-full bg-no-repeat bg-cover bg-center bg-fixed relative">
           <img [src]="recipe.$thumbnail?.data?.url"
@@ -15,7 +15,48 @@
       </div>
     </div>
 
+    <ion-item-group>
+      <ion-item-divider>
+        <ion-label>TOPPINS</ion-label>
+      </ion-item-divider>
 
+      <ion-item>
+        <ion-thumbnail slot="start">
+          <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/thumbnail.svg" />
+        </ion-thumbnail>
+        <ion-label>Lime</ion-label>
+
+        <ion-select slot="end" aria-label="Fruit" interface="action-sheet" placeholder="Select fruit">
+          <ion-select-option value="apples">Apples</ion-select-option>
+          <ion-select-option value="oranges">Oranges</ion-select-option>
+          <ion-select-option value="bananas">Bananas</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-thumbnail slot="start">
+          <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/thumbnail.svg" />
+        </ion-thumbnail>
+        <ion-label>Tomato Sausage</ion-label>
+
+        <ion-select slot="end" aria-label="Fruit" interface="action-sheet" placeholder="Select fruit">
+          <ion-select-option value="apples">Apples</ion-select-option>
+          <ion-select-option value="oranges">Oranges</ion-select-option>
+          <ion-select-option value="bananas">Bananas</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-thumbnail slot="start">
+          <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/thumbnail.svg" />
+        </ion-thumbnail>
+        <ion-label>Cheese</ion-label>
+
+        <ion-select slot="end" aria-label="Fruit" interface="action-sheet" placeholder="Select fruit">
+          <ion-select-option value="apples">Apples</ion-select-option>
+          <ion-select-option value="oranges">Oranges</ion-select-option>
+          <ion-select-option value="bananas">Bananas</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-item-group>
   </ion-content>
 
 

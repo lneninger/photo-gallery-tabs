@@ -42,7 +42,6 @@ export class RecipeDetailsPage extends BaseComponent implements OnInit {
     this.load();
 
     this.route.paramMap.pipe(map(params => ({ menuId: params.get('menuId') || undefined, recipeId: params.get('id') || undefined }))).subscribe((data) => {
-      debugger
       const currentMenuId = this.store.selectSnapshot(MenuState.selectedMenuIdSelector);
       if (currentMenuId != data.menuId) {
         this.service.setSelectedMenuId(data.menuId);

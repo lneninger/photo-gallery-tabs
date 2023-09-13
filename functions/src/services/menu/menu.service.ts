@@ -40,4 +40,35 @@ export class MenuService {
 
     return traverseFromPath('menus', onDocument, onCollection);
   }
+
+  /**
+   * Get toppings
+   */
+  async getToppings() {
+    const onDocument = async (node: DocumentReference, parent?: any) => {
+      const document = { id: node.id, data: (await node.get()).data() } as FirestoreDocumentMapping<any>;
+      if (parent && Array.isArray(parent)) {
+        (parent as FirestoreDocumentMapping<any>[]).push(document);
+        return document;
+      }
+      return null;
+    };
+
+    const onCollection = async (node: CollectionReference, parent?: any) => {
+      const typedParent = parent as FirestoreDocumentMapping<any>;
+
+      let result: any[] = typedParent?.data[node.id];
+
+      if (!result) {
+        result = [];
+        if (typedParent) {
+          typedParent.data[node.id] = result;
+        }
+      }
+
+      return result;
+    };
+
+    return traverseFromPath('toppings', onDocument, onCollection);
+  }
 }

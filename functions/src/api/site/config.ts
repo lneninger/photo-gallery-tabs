@@ -14,7 +14,8 @@ export const getConfig = functions.https.onRequest(async (req: functions.https.R
 
     const menuService = new MenuService();
     const menus = await menuService.getMenu();
-    res.status(200).json({ country, menus });
+    const toppings = await menuService.getToppings();
+    res.status(200).json({ country, menus, toppings });
   });
 });
 

@@ -16,7 +16,7 @@ function configureExpress(app: express.Express) {
 
 export const getMenus = functions.https.onCall(async (data: any, context: functions.https.CallableContext) => {
   const menuService = new MenuService();
-  return await menuService.getMenu();
+  return { menus: await menuService.getMenu(), toppings: await menuService.getToppings() };
 });
 
 

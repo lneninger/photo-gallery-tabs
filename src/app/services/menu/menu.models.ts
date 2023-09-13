@@ -32,7 +32,10 @@ export interface IMenu extends IMenuWrapper {
 export interface IRecipe {
   name: string | undefined;
   description: string | undefined;
-  toppings: FirestoreDocumentMapping<RecipeTopping>[] | undefined;
+  toppings: FirestoreDocumentMapping<IRecipeToppingReference>[] | undefined;
+
+  toppings$: FirestoreDocumentMapping<RecipeTopping>[] | undefined;
+  // toppings$: FirestoreDocumentMapping<RecipeTopping>[] | undefined;
   images: FirestoreDocumentMapping<IMenuImage>[] | undefined;
   sizes: IRecipeSize[] | undefined;
   $thumbnail?: FirestoreDocumentMapping<IMenuImage> | undefined;
@@ -41,40 +44,59 @@ export interface IRecipe {
 export class Recipe implements IRecipe {
   name: string | undefined;
   description: string | undefined;
-  toppings: FirestoreDocumentMapping<RecipeTopping>[] | undefined;
+  toppings: FirestoreDocumentMapping<IRecipeToppingReference>[] | undefined;
+  toppings$: FirestoreDocumentMapping<RecipeTopping>[] | undefined;
   sizes: IRecipeSize[] | undefined;
   images: FirestoreDocumentMapping<IMenuImage>[] | undefined;
   get $thumbnail() {
     return this.images?.find(image => image.data.type == MenuImageType.thumbnail) ?? this.images?.[0];
   }
   constructor(input: Partial<IRecipe>, toppings?: FirestoreDocumentMapping<IRecipeTopping>[]) {
-    Object.assign(this, input);
+    Object.assign(this, { ...input });
     if (toppings) {
-      this.toppings?.forEach(topping => topping.data = new RecipeTopping(topping.data as IRecipeTopping, toppings));
+      // this.$toppings = this.toppings?.map(topping => ({...topping, data: new RecipeTopping(topping.data as IRecipeTopping, toppings)}));
+      this.toppings$ = this.toppings?.map(topping => {
+        const match = toppings.find(lkp => lkp.data.name == topping.data.name);
+        if (match) {
+          return ({ ...match, data: new RecipeTopping(match.data as IRecipeTopping) });
+        };
+
+        return undefined;
+      }).filter(item => item != undefined) as FirestoreDocumentMapping<RecipeTopping>[];
     }
   }
 }
 
 
+
+
+export interface IRecipeToppingReference {
+
+  name: string | undefined;
+}
+
 export interface IRecipeTopping {
+
   name: string | undefined;
   images: FirestoreDocumentMapping<IMenuImage>[] | undefined;
+  options: FirestoreDocumentMapping<IRecipeToppingOption>[] | undefined;
 }
 
 export class RecipeTopping implements IRecipeTopping {
   name: string | undefined;
   images: FirestoreDocumentMapping<IMenuImage>[] | undefined;
+  options: FirestoreDocumentMapping<IRecipeToppingOption>[] | undefined;
 
   get $thumbnail() {
     return this.images?.find(image => image.data.type == MenuImageType.thumbnail) ?? this.images?.[0];
   }
-  constructor(input: Partial<IRecipeTopping>, lkpArray: FirestoreDocumentMapping<IRecipeTopping>[]) {
+  constructor(input: Partial<IRecipeTopping>) {
     Object.assign(this, input);
-    const match = lkpArray.find(lkp => lkp.id == this.name);
-    if (match) {
-      Object.assign(this, match);
-    }
   }
+}
+
+export interface IRecipeToppingOption {
+  name: string | undefined;
 }
 
 export interface IRecipeSize {

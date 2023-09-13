@@ -20,16 +20,14 @@
         <ion-label>EXTRA TOPPINGS</ion-label>
       </ion-item-divider>
 
-      <ion-item *ngFor="let topping of this.recipe.toppings">
+      <ion-item *ngFor="let topping of this.recipe.toppings$">
         <ion-thumbnail slot="start">
-          <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/thumbnail.svg" />
+          <img alt="Silhouette of mountains" [src]="topping.data.$thumbnail?.data?.url" />
         </ion-thumbnail>
         <ion-label>{{topping.data.name}}</ion-label>
 
         <ion-select slot="end" aria-label="Fruit" interface="action-sheet" placeholder="Select fruit">
-          <ion-select-option value="apples">Apples</ion-select-option>
-          <ion-select-option value="oranges">Oranges</ion-select-option>
-          <ion-select-option value="bananas">Bananas</ion-select-option>
+          <ion-select-option *ngFor="let option of topping.data.options" value="option.data.name">{{option.data.name}}</ion-select-option>
         </ion-select>
       </ion-item>
 
